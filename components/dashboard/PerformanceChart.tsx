@@ -1,10 +1,11 @@
 'use client';
 
 import {
-  AreaChart,
-  Area,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
+  CartesianGrid,
   ResponsiveContainer,
   Tooltip,
 } from 'recharts';
@@ -22,15 +23,14 @@ export interface PerformanceChartProps {
 }
 
 const RANGE_LABELS: Record<ChartRange, string> = {
-  '5d': '5 Days',
-  '1mo': '1 Month',
-  '3mo': '3 Months',
-  '1y': '1 Year',
+  '5d': '5D',
+  '1mo': '1M',
+  '3mo': '3M',
+  '1y': '1Y',
 };
 
 /**
- * Portfolio performance area chart with range selector and optional hover glow.
- * PRD: area with gradient (green positive, red negative), value change $ and % in header.
+ * Portfolio value line chart: sharp/granular line, dashed grid, professional look.
  */
 export const PerformanceChart = ({
   data,
@@ -51,11 +51,11 @@ export const PerformanceChart = ({
   return (
     <GlassCard
       className={cn(
-        'lg:hover:shadow-chart-glow transition-shadow duration-200',
+        'flex min-h-0 flex-col transition-shadow duration-200 lg:hover:shadow-chart-glow',
         className,
       )}
     >
-      <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mb-3 flex shrink-0 flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="text-base font-medium text-primary-foreground">
             Portfolio value
@@ -75,14 +75,14 @@ export const PerformanceChart = ({
           </p>
         </div>
         {onRangeChange && (
-          <div className="flex flex-wrap gap-1 rounded-lg bg-white/5 p-1">
+          <div className="flex flex-wrap gap-0.5 rounded-lg bg-white/5 p-0.5">
             {(Object.keys(RANGE_LABELS) as ChartRange[]).map((r) => (
               <button
                 key={r}
                 type="button"
                 onClick={() => onRangeChange(r)}
                 className={cn(
-                  'rounded-md px-3 py-1.5 text-xs font-medium transition-colors',
+                  'rounded px-2.5 py-1.5 text-xs font-medium transition-colors',
                   range === r
                     ? 'bg-primary-500/20 text-primary-500'
                     : 'text-secondary-muted hover:bg-white/5 hover:text-primary-foreground',
@@ -94,51 +94,22 @@ export const PerformanceChart = ({
           </div>
         )}
       </div>
-      <div className="h-56 w-full">
+      <div className="min-h-0 flex-1 w-full">
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart
+          <LineChart
             data={data}
-            margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
+            margin={{ top: 8, right: 8, left: 8, bottom: 0 }}
           >
-            <defs>
-              <linearGradient
-                id="performanceFillPositive"
-                x1="0"
-                y1="0"
-                x2="0"
-                y2="1"
-              >
-                <stop
-                  offset="0%"
-                  stopColor="var(--primary-main)"
-                  stopOpacity={0.3}
-                />
-                <stop
-                  offset="100%"
-                  stopColor="var(--primary-main)"
-                  stopOpacity={0}
-                />
-              </linearGradient>
-              <linearGradient
-                id="performanceFillNegative"
-                x1="0"
-                y1="0"
-                x2="0"
-                y2="1"
-              >
-                <stop
-                  offset="0%"
-                  stopColor="rgb(239 68 68)"
-                  stopOpacity={0.3}
-                />
-                <stop offset="100%" stopColor="rgb(239 68 68)" stopOpacity={0} />
-              </linearGradient>
-            </defs>
+            <CartesianGrid
+              strokeDasharray="3 3"
+              stroke="rgba(255,255,255,0.06)"
+              vertical={false}
+            />
             <XAxis
               dataKey="date"
               axisLine={false}
               tickLine={false}
-              tick={{ fontSize: 12, fill: 'currentColor' }}
+              tick={{ fontSize: 11, fill: 'currentColor' }}
               className="text-secondary-muted"
             />
             <YAxis hide domain={[minVal, maxVal]} />
@@ -154,18 +125,16 @@ export const PerformanceChart = ({
                 'Value',
               ]}
             />
-            <Area
-              type="monotone"
+            <Line
+              type="linear"
               dataKey="value"
               stroke={isPositive ? 'var(--primary-main)' : 'rgb(239 68 68)'}
-              strokeWidth={2}
-              fill={
-                isPositive
-                  ? 'url(#performanceFillPositive)'
-                  : 'url(#performanceFillNegative)'
-              }
+              strokeWidth={1.5}
+              dot={false}
+              activeDot={{ r: 3, strokeWidth: 0 }}
+              connectNulls
             />
-          </AreaChart>
+          </LineChart>
         </ResponsiveContainer>
       </div>
     </GlassCard>

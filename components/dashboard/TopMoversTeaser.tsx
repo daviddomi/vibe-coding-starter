@@ -19,7 +19,7 @@ export interface TopMoversTeaserProps {
 export const TopMoversTeaser = ({
   holdings,
   max = 5,
-  viewAllHref = '/dashboard/holdings',
+  viewAllHref = '/dashboard',
   className,
 }: TopMoversTeaserProps) => {
   const list = holdings.slice(0, max);
@@ -38,7 +38,7 @@ export const TopMoversTeaser = ({
           <ChevronRightIcon className="h-3 w-3" />
         </Link>
       </div>
-      <ul className="mt-4 flex flex-col gap-2">
+      <ul className="mt-3 flex flex-col gap-1.5">
         {list.map((h) => {
           const up = h.todayChangePercent >= 0;
           return (

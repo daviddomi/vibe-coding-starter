@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -12,18 +12,23 @@ import { Button } from '@/components/shared/ui/button';
 import { Input } from '@/components/shared/ui/input';
 import { Label } from '@/components/shared/ui/label';
 import { cn } from '@/lib/utils';
-import type { HoldingType } from '@/data/dashboard/portfolioSampleData';
+import type { HoldingType, Holding } from '@/data/dashboard/portfolioSampleData';
 
 export interface AddHoldingDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onSubmit?: (data: {
-    symbol: string;
-    assetType: HoldingType;
-    quantity: string;
-    averageCost: string;
-    platform?: string;
-  }) => void;
+  /** When set, dialog is in edit mode: prefilled and submits with editId */
+  editHolding?: Holding | null;
+  onSubmit?: (
+    data: {
+      symbol: string;
+      assetType: HoldingType;
+      quantity: string;
+      averageCost: string;
+      platform?: string;
+    },
+    options?: { editId: string },
+  ) => void;
 }
 
 const CRYPTO_CHIPS: { symbol: string; name: string }[] = [
@@ -38,6 +43,7 @@ const CRYPTO_CHIPS: { symbol: string; name: string }[] = [
 export const AddHoldingDialog = ({
   open,
   onOpenChange,
+  editHolding,
   onSubmit,
 }: AddHoldingDialogProps) => {
   const [assetType, setAssetType] = useState<HoldingType>('stock');
@@ -46,25 +52,48 @@ export const AddHoldingDialog = ({
   const [averageCost, setAverageCost] = useState('');
   const [platform, setPlatform] = useState('');
 
+  useEffect(() => {
+    if (open && editHolding) {
+      setAssetType(editHolding.type);
+      setSymbol(editHolding.symbol);
+      setQuantity(editHolding.quantity.toString());
+      setAverageCost(editHolding.averageCost.toString());
+      setPlatform(editHolding.platform ?? '');
+    } else if (!open) {
+      setSymbol('');
+      setQuantity('');
+      setAverageCost('');
+      setPlatform('');
+      if (!editHolding) setAssetType('stock');
+    }
+  }, [open, editHolding]);
+
   const handleChip = (s: string) => {
     setSymbol(s);
     setAssetType('crypto');
   };
 
+  const isEdit = Boolean(editHolding);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit?.({
-      symbol: symbol.trim().toUpperCase(),
-      assetType,
-      quantity: quantity.trim(),
-      averageCost: averageCost.trim(),
-      platform: platform.trim() || undefined,
-    });
+    onSubmit?.(
+      {
+        symbol: symbol.trim().toUpperCase(),
+        assetType,
+        quantity: quantity.trim(),
+        averageCost: averageCost.trim(),
+        platform: platform.trim() || undefined,
+      },
+      isEdit ? { editId: editHolding!.id } : undefined,
+    );
     onOpenChange(false);
-    setSymbol('');
-    setQuantity('');
-    setAverageCost('');
-    setPlatform('');
+    if (!isEdit) {
+      setSymbol('');
+      setQuantity('');
+      setAverageCost('');
+      setPlatform('');
+    }
   };
 
   return (
@@ -72,7 +101,7 @@ export const AddHoldingDialog = ({
       <DialogContent className="dark border-white/10 bg-primary-card text-primary-foreground">
         <DialogHeader>
           <DialogTitle className="text-primary-foreground">
-            Add holding
+            {isEdit ? 'Edit holding' : 'Add holding'}
           </DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -183,7 +212,7 @@ export const AddHoldingDialog = ({
               Cancel
             </Button>
             <Button type="submit" className="bg-primary-500 text-white hover:bg-primary-600">
-              Add holding
+              {isEdit ? 'Save changes' : 'Add holding'}
             </Button>
           </DialogFooter>
         </form>

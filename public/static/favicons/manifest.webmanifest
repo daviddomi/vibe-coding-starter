@@ -1,7 +1,7 @@
 {
-  "name": "Mevolut",
-  "short_name": "Mevolut",
-  "description": "Manage your money the easy way with Mevolut . Track expenses, send money, and grow your savings – safely and simply. Sign up free today!",
+  "name": "StockTrac",
+  "short_name": "StockTrac",
+  "description": "Track your investments with StockTrac. Monitor holdings, watchlists, and portfolio performance.",
   "dir": "auto",
   "lang": "en-US",
   "display": "standalone",

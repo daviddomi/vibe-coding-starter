@@ -19,7 +19,7 @@ export interface MetricStripProps {
 export const MetricStrip = ({ items, className }: MetricStripProps) => (
   <div
     className={cn(
-      'flex flex-wrap gap-x-6 gap-y-2 border-y border-white/10 py-4',
+      'flex flex-wrap gap-x-6 gap-y-1 border-y border-white/10 py-3',
       className,
     )}
   >

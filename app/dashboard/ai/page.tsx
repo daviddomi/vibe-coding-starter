@@ -20,6 +20,9 @@ export default function AIAnalysisPage() {
 
   return (
     <div className="flex flex-col gap-6">
+      <h1 className="text-xl font-semibold tracking-tight text-primary-foreground md:text-2xl">
+        Insights
+      </h1>
       <GlassCard className="overflow-hidden bg-gradient-to-br from-primary-500/10 via-transparent to-secondary-500/10">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div>

@@ -13,6 +13,8 @@ export interface AllocationSegment {
 export interface AllocationPieChartProps {
   data: AllocationSegment[];
   className?: string;
+  /** When true, render only chart + legend (no card, no title) for embedding in another section */
+  embedded?: boolean;
 }
 
 /* Design brief palette only: vibrant mint (primary), muted periwinkle (secondary accent), slate (muted) */
@@ -28,12 +30,13 @@ const CHART_COLORS = [
 /**
  * Portfolio allocation pie chart. PRD: segments by symbol, distinct colors, legend with symbol and %.
  */
-export const AllocationPieChart = ({ data, className }: AllocationPieChartProps) => (
-  <GlassCard className={cn(className)}>
-    <h2 className="mb-4 text-base font-medium text-primary-foreground">
-      Portfolio allocation
-    </h2>
-    <div className="h-64 w-full">
+export const AllocationPieChart = ({
+  data,
+  className,
+  embedded = false,
+}: AllocationPieChartProps) => {
+  const chartBlock = (
+    <div className={embedded ? 'h-44 w-full' : 'h-52 w-full'}>
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
@@ -42,12 +45,10 @@ export const AllocationPieChart = ({ data, className }: AllocationPieChartProps)
             nameKey="symbol"
             cx="50%"
             cy="50%"
-            innerRadius="50%"
-            outerRadius="80%"
-            paddingAngle={1}
-            label={({ symbol, percent }) =>
-              percent >= 4 ? `${symbol} ${percent.toFixed(0)}%` : ''
-            }
+            innerRadius="52%"
+            outerRadius="78%"
+            paddingAngle={2}
+            isAnimationActive={true}
           >
             {data.map((_, index) => (
               <Cell
@@ -71,15 +72,34 @@ export const AllocationPieChart = ({ data, className }: AllocationPieChartProps)
             layout="vertical"
             align="right"
             verticalAlign="middle"
-            formatter={(value, entry) => (
-              <span className="text-sm text-primary-foreground">
-                {value}{' '}
-                {data.find((d) => d.symbol === value)?.percent.toFixed(1)}%
-              </span>
-            )}
+            wrapperStyle={{ fontSize: '0.8125rem' }}
+            formatter={(value) => {
+              const segment = data.find((d) => d.symbol === value);
+              return (
+                <span className="text-primary-foreground">
+                  {value}
+                  <span className="ml-1.5 text-secondary-muted">
+                    {segment ? `${segment.percent.toFixed(1)}%` : ''}
+                  </span>
+                </span>
+              );
+            }}
           />
         </PieChart>
       </ResponsiveContainer>
     </div>
-  </GlassCard>
-);
+  );
+
+  if (embedded) {
+    return <div className={cn(className)}>{chartBlock}</div>;
+  }
+
+  return (
+    <GlassCard className={cn(className)}>
+      <h2 className="mb-3 text-base font-medium text-primary-foreground">
+        Portfolio allocation
+      </h2>
+      {chartBlock}
+    </GlassCard>
+  );
+};

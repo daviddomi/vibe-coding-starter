@@ -33,9 +33,9 @@
   }
 
   .dark {
-    /* StockTrac design brief: deep black #030205, dark navy card #11141E, white text */
-    --primary-surface: 270 33% 1%;
-    --primary-card: 222 25% 9%;
+    /* StockTrac: dark navy surface (matches card hue), cards slightly lighter for depth */
+    --primary-surface: 222 24% 5%;
+    --primary-card: 222 22% 9%;
     --primary-foreground: 0 0% 100%;
     --background: 270 33% 1%;
     --foreground: 0 0% 95%;
@@ -393,30 +393,54 @@ input:-webkit-autofill:focus {
 }
 
 /**
- * Scrollbar
+ * Scrollbar – thin, subtle track, rounded thumb
  */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.18) transparent;
+}
+
+.dark * {
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
 ::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: rgba(240, 240, 240, 0.1);
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #d6dee1;
-  border-radius: 16px;
-  border: 4px solid transparent;
-  background-clip: content-box;
+  background-color: rgba(0, 0, 0, 0.18);
+  border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #a8bbbf;
+  background-color: rgba(0, 0, 0, 0.28);
 }
 
 ::-webkit-scrollbar-corner {
-  background: rgba(240, 240, 240, 0.1);
+  background: transparent;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.28);
+}
+
+.dark ::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 /**

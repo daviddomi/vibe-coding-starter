@@ -84,6 +84,11 @@ module.exports = () => {
         },
       ],
     },
+    async redirects() {
+      return [
+        { source: '/dashboard/holdings', destination: '/dashboard', permanent: false },
+      ];
+    },
     async headers() {
       return [
         {

@@ -13,7 +13,7 @@ export interface GlassCardProps extends React.HTMLAttributes<HTMLDivElement> {
 export const GlassCard = ({ children, className, ...props }: GlassCardProps) => (
   <div
     className={cn(
-      'rounded-xl border border-white/10 bg-primary-card p-6',
+      'rounded-xl border border-white/10 bg-primary-card p-5',
       'bg-gradient-to-br from-white/[0.05] to-transparent',
       'backdrop-blur-[12px] backdrop-saturate-[180%]',
       'text-primary-foreground',

@@ -10,23 +10,22 @@ export const Footer = ({ className }: { className?: string }) => {
   return (
     <LandingFooter
       className={className}
-      title="Mevolut"
-      description="A simpler way to manage your money"
+      title="StockTrac"
+      description="Smart Portfolio Tracking"
       withBackground
       withBackgroundGlow={false}
       variant="primary"
       backgroundGlowVariant="primary"
       withBackgroundGradient
       logoComponent={
-        <div className="flex items-center text-primary-900 dark:text-primary-100 gap-3">
+        <div className="flex items-center text-primary-900 dark:text-primary-100">
           <Image
             src="/static/images/logo.png"
-            alt="Mevolut logo"
-            width={200}
-            height={200}
-            className="h-8 w-8 rounded-full"
+            alt="StockTrac"
+            width={160}
+            height={48}
+            className="h-9 w-auto object-contain"
           />
-          {'Mevolut '}
         </div>
       }
     >

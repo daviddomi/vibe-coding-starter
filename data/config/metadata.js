@@ -1,10 +1,10 @@
 const metadata = {
-  title: 'Mevolut | Simple B2C Fintech for your Money',
+  title: 'StockTrac',
   description:
-    'Manage your money the easy way with Mevolut. Track expenses, send money, and grow your savings – safely and simply. Sign up free today!',
+    'Track your investments with StockTrac. Monitor holdings, watchlists, and portfolio performance in one place.',
   domain: 'pageai.pro',
   logoTitle: '',
-  businessName: 'Mevolut',
+  businessName: 'StockTrac',
   siteUrl: 'https://pageai.pro',
   siteRepo: '',
   socialBanner: '/api/og',
@@ -19,7 +19,7 @@ const metadata = {
   facebook: '',
   threads: '',
   mastodon: '',
-  author: 'Mevolut',
+  author: 'StockTrac',
   language: 'en-us',
   theme: 'light',
   locale: 'en-US',

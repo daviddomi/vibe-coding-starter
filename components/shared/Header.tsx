@@ -10,15 +10,14 @@ export const Header = ({ className }: { className?: string }) => {
       withBackground
       variant="primary"
       logoComponent={
-        <div className="flex items-center text-primary-500 dark:text-primary-500 gap-3">
+        <div className="flex items-center gap-3">
           <Image
             src="/static/images/logo.png"
-            alt="Mevolut logo"
-            width={200}
-            height={200}
-            className="h-8 w-8 rounded-full"
+            alt="StockTrac"
+            width={160}
+            height={48}
+            className="h-9 w-auto object-contain"
           />
-          <span className="font-bold text-lg">Mevolut</span>
         </div>
       }
     >

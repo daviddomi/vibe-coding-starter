@@ -1,9 +1,9 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   LayoutDashboardIcon,
-  TrendingUpIcon,
   SparklesIcon,
   SettingsIcon,
   XIcon,
@@ -12,7 +12,6 @@ import { cn } from '@/lib/utils';
 
 const navItems = [
   { href: '/dashboard', icon: LayoutDashboardIcon, label: 'Overview' },
-  { href: '/dashboard/holdings', icon: TrendingUpIcon, label: 'Holdings' },
   { href: '/dashboard/ai', icon: SparklesIcon, label: 'Insights' },
 ];
 
@@ -58,10 +57,13 @@ export const DashboardSidebar = ({
             href="/dashboard"
             className="flex items-center gap-2 font-semibold text-primary-foreground"
           >
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-500 text-white">
-              S
-            </span>
-            <span className="hidden xl:inline">StockTrac</span>
+            <Image
+              src="/static/images/logo.png"
+              alt="StockTrac"
+              width={120}
+              height={32}
+              className="h-8 w-auto object-contain object-left"
+            />
           </Link>
           {onClose && (
             <button

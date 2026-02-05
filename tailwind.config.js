@@ -26,9 +26,17 @@ module.exports = {
         sans: ['var(--font-space-default)', ...fontFamily.sans],
         display: ['var(--font-space-display)', ...fontFamily.sans],
         cursive: ['cursive'],
+        stocktrac: ['var(--font-stocktrac)', 'Inter', ...fontFamily.sans],
+      },
+      boxShadow: {
+        'chart-glow': '0 0 15px rgb(62 168 124 / 0.3)',
       },
       colors: {
         primary: {
+          surface: 'hsl(var(--primary-surface))',
+          card: 'hsl(var(--primary-card))',
+          foreground: 'hsl(var(--primary-foreground))',
+          brand: customColors.primary.brand,
           100: customColors.primary.lighter,
           200: customColors.primary.lighter,
           300: customColors.primary.light,
@@ -40,6 +48,8 @@ module.exports = {
           900: customColors.primary.darker,
         },
         secondary: {
+          accent: customColors.secondary.accent,
+          muted: customColors.secondary.muted,
           100: customColors.secondary.lighter,
           200: customColors.secondary.lighter,
           300: customColors.secondary.light,

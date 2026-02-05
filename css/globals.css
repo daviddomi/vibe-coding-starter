@@ -4,6 +4,10 @@
 
 @layer base {
   :root {
+    /* StockTrac: light mode surfaces and text */
+    --primary-surface: 250 20% 98.5%;
+    --primary-card: 0 0% 100%;
+    --primary-foreground: 222 47% 11%;
     --hard-shadow: 0px 29px 52px 0px rgba(0, 0, 0, 0.4),
       22px 25px 16px 0px rgba(0, 0, 0, 0.2);
     --hard-shadow-left: 0px 29px 52px 0px rgba(0, 0, 0, 0.4),
@@ -29,13 +33,16 @@
   }
 
   .dark {
-    --background: 20 14.3% 4.1%;
+    /* StockTrac design brief: deep black #030205, dark navy card #11141E, white text */
+    --primary-surface: 270 33% 1%;
+    --primary-card: 222 25% 9%;
+    --primary-foreground: 0 0% 100%;
+    --background: 270 33% 1%;
     --foreground: 0 0% 95%;
-    --card: 24 9.8% 10%;
+    --card: 222 25% 9%;
     --card-foreground: 0 0% 95%;
-    --popover: 0 0% 9%;
+    --popover: 222 25% 9%;
     --popover-foreground: 0 0% 95%;
-    --primary-foreground: 144.9 80.4% 10%;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 0 0% 15%;
